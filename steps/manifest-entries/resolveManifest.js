@@ -28,7 +28,7 @@ module.exports = function (workingDir) {
         return manifestFilePath
       } catch (error) {
         // Nothing found. Manifests are required so we exit.
-        // This prevent us from loading Chrome with a bad config.
+        // This prevent us from loading Edge with a bad config.
         messages.manifestNotFound()
         process.exit(1)
       }

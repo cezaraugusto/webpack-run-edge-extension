@@ -6,7 +6,7 @@ const cssFromHtml = require('./cssFromHtml')
 
 module.exports = function (compiler, extensionPath) {
   return compiler.hooks.afterCompile.tapAsync(
-    'open-chrome-extension',
+    'open-edge-extension',
     async (compilation, done) => {
       const manifestPath = resolveManifest(extensionPath)
       const entries = [

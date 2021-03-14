@@ -29,9 +29,9 @@ module.exports = (extensionDistPath, configOptions) => {
     startingUrl: options.startingUrl,
     // Flags set by default:
     // https://github.com/GoogleChrome/chrome-launcher/blob/master/src/flags.ts
-    // Flags to pass to Chrome
+    // Flags to pass to Edge
     // Any of http://peter.sh/experiments/chromium-command-line-switches/
-    chromeFlags: [
+    edgeFlags: [
       ...options.defaultFlags,
       `--load-extension=${extensionsToLoad.join()}`,
       ...options.browserFlags

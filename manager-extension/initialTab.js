@@ -1,17 +1,17 @@
-/* global chrome */
+/* global browser */
 // Ideas here are adapted from
-// https://github.com/jeremyben/webpack-chrome-extension-launcher
+// https://github.com/jeremyben/webpack-browser-extension-launcher
 // Released under MIT license.
 
 // Create a new tab and set it to background.
 // We want the user-selected page to be active,
-// not chrome://extensions.
-function createChromeExtensionsTab (initialTab) {
+// not browser://extensions.
+function createEdgeExtensionsTab (initialTab) {
   // Create an inactive tab
   chrome.tabs.create(
-    { url: 'chrome://extensions/', active: false },
+    { url: 'edge://extensions/', active: false },
     function setBackgroundTab (extensionsTab) {
-      // Get current chrome://extensions tab and move it left.
+      // Get current browser://extensions tab and move it left.
       // This action auto-activates the tab
       chrome.tabs.move(extensionsTab.id, { index: 0 }, () => {
         // Get user-selected initial page tab activate the right tab
@@ -23,10 +23,10 @@ function createChromeExtensionsTab (initialTab) {
 
 chrome.tabs.query({ active: true }, ([initialTab]) => {
   if (initialTab.url === 'about:blank') {
-    chrome.tabs.update({ url: 'chrome://extensions/' })
+    chrome.tabs.update({ url: 'edge://extensions/' })
 
     return
   }
 
-  createChromeExtensionsTab(initialTab)
+  createEdgeExtensionsTab(initialTab)
 })

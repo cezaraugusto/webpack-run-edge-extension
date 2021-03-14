@@ -1,6 +1,6 @@
-/* global chrome */
+/* global browser */
 
-chrome
+browser
   .devtools
   .panels
   .elements

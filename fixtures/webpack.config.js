@@ -3,7 +3,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-const OpenChromeExtension = require('../module')
+const OpenEdgeExtension = require('../module')
 
 module.exports = {
   cache: false,
@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new OpenChromeExtension({
+    new OpenEdgeExtension({
       extensionPath: path.resolve(__dirname, './demo-extension')
     }),
     new HtmlWebpackPlugin({

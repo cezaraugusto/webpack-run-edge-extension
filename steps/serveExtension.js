@@ -1,19 +1,19 @@
-const ChromeLauncher = require('chrome-launcher')
+const EdgeLauncher = require('chromium-edge-launcher')
 
 const browserConfig = require('../browser.config')
 const createUserDataDir = require('./manifest-entries/watch/createUserDataDir')
 
 process.on('SIGINT', async () => {
-  await ChromeLauncher.killAll()
+  await EdgeLauncher.killAll()
 })
 process.on('SIGTERM', async () => {
-  await ChromeLauncher.killAll()
+  await EdgeLauncher.killAll()
 })
 
 process.on('unhandledRejection', (error) => { throw error })
 
 module.exports = async function (self = {}) {
-  const defaultFlags = ChromeLauncher
+  const defaultFlags = EdgeLauncher
     .Launcher.defaultFlags()
     .filter(flag => flag !== '--disable-extensions')
 
@@ -27,7 +27,7 @@ module.exports = async function (self = {}) {
   }
 
   // Set user defaults to browser
-  const chromeConfig = browserConfig(self.extensionPath, browserConfigOptions)
+  const edgeConfig = browserConfig(self.extensionPath, browserConfigOptions)
 
-  await ChromeLauncher.launch(chromeConfig)
+  await EdgeLauncher.launch(edgeConfig)
 }

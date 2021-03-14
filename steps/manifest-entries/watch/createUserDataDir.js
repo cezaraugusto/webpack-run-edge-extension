@@ -11,7 +11,7 @@ process.on('unhandledRejection', (error) => { throw error })
 
 async function createTempDirectory () {
   const userDataDir = path
-    .resolve(os.tmpdir(), 'webpack-run-chrome-extension')
+    .resolve(os.tmpdir(), 'webpack-run-edge-extension')
 
   try {
     await fs.mkdir(userDataDir)

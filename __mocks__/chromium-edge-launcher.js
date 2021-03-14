@@ -1,7 +1,7 @@
 /* global jest */
-const ChromeLauncher = jest.genMockFromModule('chrome-launcher')
+const EdgeLauncher = jest.genMockFromModule('chromium-edge-launcher')
 
-async function launchChrome (opts = {}) {
+async function launchEdge (opts = {}) {
   const fsMock = {
     openSync: () => {},
     closeSync: () => {},
@@ -11,16 +11,16 @@ async function launchChrome (opts = {}) {
   const spawnStub = jest.fn().mockReturnValue({ pid: 'pid' })
 
   const moduleOverrides = { fs: fsMock, rimraf: jest.fn(), spawn: spawnStub }
-  const chromeInstance = new ChromeLauncher.Launcher(opts, moduleOverrides)
+  const edgeInstance = new EdgeLauncher.Launcher(opts, moduleOverrides)
 
   jest
-    .spyOn(chromeInstance, 'waitUntilReady')
+    .spyOn(edgeInstance, 'waitUntilReady')
     .mockReturnValue(Promise.resolve({}))
 
-  chromeInstance.prepare()
+  edgeInstance.prepare()
 
   try {
-    await chromeInstance.launch()
+    await edgeInstance.launch()
 
     return Promise.resolve(spawnStub)
   } catch (err) {
@@ -28,7 +28,7 @@ async function launchChrome (opts = {}) {
   }
 }
 
-ChromeLauncher.Launcher.defaultFlags = jest.fn().mockReturnValue([
+EdgeLauncher.Launcher.defaultFlags = jest.fn().mockReturnValue([
   '--disable-features=TranslateUI',
   '--disable-extensions',
   '--disable-component-extensions-with-background-pages',
@@ -44,7 +44,7 @@ ChromeLauncher.Launcher.defaultFlags = jest.fn().mockReturnValue([
   '--disable-background-timer-throttling',
   '--force-fieldtrials=*BackgroundTracing/default/'
 ])
-ChromeLauncher.killAll = jest.fn()
-ChromeLauncher.launch = (opts) => launchChrome(opts)
+EdgeLauncher.killAll = jest.fn()
+EdgeLauncher.launch = (opts) => launchEdge(opts)
 
-module.exports = ChromeLauncher
+module.exports = EdgeLauncher

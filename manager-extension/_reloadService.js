@@ -1,4 +1,4 @@
-/* global chrome */
+/* global browser */
 const ws = new window.WebSocket('ws://localhost:__PORT__')
 
 // Gracefully close websocket connection before unloading app

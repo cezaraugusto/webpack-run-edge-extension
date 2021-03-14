@@ -8,7 +8,7 @@ const serveExtension = require('./steps/serveExtension')
 // The plugin works by opening a Node websocket server
 // watched by webpack that connects to an extension
 // responsible for triggering reloads on all extensions.
-class RunChromeExtension {
+class RunEdgeExtension {
   constructor (options = {}) {
     // User-defined options
     this.port = resolvePort(options.port)
@@ -44,4 +44,4 @@ class RunChromeExtension {
   }
 }
 
-module.exports = RunChromeExtension
+module.exports = RunEdgeExtension

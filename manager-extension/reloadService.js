@@ -1,4 +1,4 @@
-/* global chrome */
+/* global browser */
 const ws = new window.WebSocket('ws://localhost:8081')
 
 // Gracefully close websocket connection before unloading app
