@@ -1,10 +1,8 @@
 /* global jest, describe, beforeEach, afterEach, it, expect */
 const EdgeLauncher = require('chromium-edge-launcher')
 
-const serveExtension = require('./steps/serveExtension')
+const {launchChrome} = require('./steps/serveExtension')
 
-// RunEdgeExtension is now a mock constructor
-jest.mock('./module')
 jest.mock('./steps/manifest-entries/watch/createUserDataDir')
 
 describe('webpack-run-edge-extension', () => {
@@ -20,7 +18,7 @@ describe('webpack-run-edge-extension', () => {
       })
 
       it('`extensionPath` config sets respective browser flag', async () => {
-        await serveExtension({
+        await launchChrome({
           autoReload: false,
           extensionPath: 'my/extension/path'
         })
@@ -34,7 +32,7 @@ describe('webpack-run-edge-extension', () => {
       it(
         '`browserFlags` config sets respective user-specified browser flags',
         async () => {
-          await serveExtension({
+          await launchChrome({
             browserFlags: ['--some-flag=flagvalue', '--another-flag=value2']
           })
 
@@ -48,7 +46,7 @@ describe('webpack-run-edge-extension', () => {
       )
 
       it('`userDataDir` config sets respective browser flag', async () => {
-        await serveExtension({ userDataDir: 'my/profile/dir' })
+        await launchChrome({ userDataDir: 'my/profile/dir' })
 
         const { userDataDir } = await EdgeLauncher.launch.mock.calls[0][0]
 
@@ -56,7 +54,7 @@ describe('webpack-run-edge-extension', () => {
       })
 
       it('`startingUrl` config sets respective browser flag', async () => {
-        await serveExtension({ startingUrl: 'my/starting/url' })
+        await launchChrome({ startingUrl: 'my/starting/url' })
 
         const { startingUrl } = await EdgeLauncher.launch.mock.calls[0][0]
 
@@ -64,7 +62,7 @@ describe('webpack-run-edge-extension', () => {
       })
 
       it('`autoReload` config loads reload extesion by default', async () => {
-        await serveExtension()
+        await launchChrome()
 
         const { edgeFlags } = await EdgeLauncher.launch.mock.calls[0][0]
         const flag1 = edgeFlags.find(flag => flag.startsWith('--load-extension'))
@@ -75,7 +73,7 @@ describe('webpack-run-edge-extension', () => {
       it(
         '`autoReload` config does not load reload extesion by default',
         async () => {
-          await serveExtension({ autoReload: false })
+          await launchChrome({ autoReload: false })
 
           const { edgeFlags } = await EdgeLauncher.launch.mock.calls[0][0]
           const flag1 = edgeFlags.find(flag => flag.startsWith('--load-extension'))
@@ -87,7 +85,7 @@ describe('webpack-run-edge-extension', () => {
       it(
         '`autoReload` config loads both user extension and reloader as expected',
         async () => {
-          await serveExtension({ extensionPath: 'my/extension/path' })
+          await launchChrome({ extensionPath: 'my/extension/path' })
 
           const { edgeFlags } = await EdgeLauncher.launch.mock.calls[0][0]
           const flags = edgeFlags.find(flag => flag.startsWith('--load-extension'))
